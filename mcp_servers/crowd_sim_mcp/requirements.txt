@@ -1,0 +1,5 @@
+# crowd-sim-mcp requirements
+# Pinned for Docker build reproducibility.
+
+mcp>=2.0.0
+h3>=4.0.0

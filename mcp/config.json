@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "crowd-sim-mcp": {
+      "transport": "streamablehttp",
+      "url": "http://crowd-sim-mcp:8001/mcp",
+      "description": "Crowd exit simulation MCP server — Streamable HTTP transport",
+      "note": "This is the only real MCP server in the stack. Servers 1,2,4,5,6 are in-process async functions."
+    }
+  }
+}

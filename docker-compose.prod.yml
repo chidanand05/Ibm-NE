@@ -1,0 +1,33 @@
+version: "3.9"
+
+# Namma Exodus — Production Docker Compose Overrides
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+#
+# This file contains production-specific overrides:
+# - No host-mapped ports for internal services (postgres, redis)
+# - Production environment settings
+# - IBM Cloud Code Engine deployment targets
+#
+# Placeholder for Milestone 6 (Sub-task 6.3 — IBM Cloud Deployment)
+# See docs/implementation-plan.md for deployment architecture
+
+services:
+  postgres:
+    # In production: replaced by IBM Databases for PostgreSQL
+    # Remove this service and set DATABASE_URL to IBM managed database endpoint
+    restart: always
+
+  redis:
+    # In production: replaced by IBM Databases for Redis
+    restart: always
+
+  backend:
+    restart: always
+    environment:
+      APP_ENV: production
+      LOG_LEVEL: INFO
+
+  frontend:
+    restart: always
+    environment:
+      NODE_ENV: production

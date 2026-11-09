@@ -1,0 +1,47 @@
+# LiteLLM Model Routing Configuration
+#
+# NOTE: In MVP, LiteLLM runs as a Python library inside the backend container.
+# This file documents the routing intent and is NOT used directly by LiteLLM in MVP.
+# It will be used if/when LiteLLM is promoted to a standalone Docker service in production.
+#
+# For MVP routing logic, see: backend/app/llm_gateway/router.py
+
+model_list:
+  - model_name: granite-strategic
+    litellm_params:
+      model: watsonx/ibm/granite-3-1-8b-instruct
+      api_key: os.environ/WATSONX_APIKEY
+      api_base: os.environ/WATSONX_URL
+      watsonx_project_id: os.environ/WATSONX_PROJECT_ID
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-1.5-flash
+      api_key: os.environ/GEMINI_API_KEY
+
+  - model_name: gemini-pro
+    litellm_params:
+      model: gemini/gemini-1.5-pro
+      api_key: os.environ/GEMINI_API_KEY
+
+  - model_name: groq-fast
+    litellm_params:
+      model: groq/llama-3.1-8b-instant
+      api_key: os.environ/GROQ_API_KEY
+
+  - model_name: groq-smart
+    litellm_params:
+      model: groq/llama-3.1-70b-versatile
+      api_key: os.environ/GROQ_API_KEY
+
+router_settings:
+  routing_strategy: usage-based-routing
+  fallbacks:
+    - strategic_reasoning:
+        models: ["granite-strategic", "gemini-pro", "groq-smart"]
+    - structured_extraction:
+        models: ["granite-strategic", "groq-fast", "gemini-flash"]
+    - classification:
+        models: ["groq-fast", "gemini-flash", "granite-strategic"]
+    - multilingual_generation:
+        models: ["gemini-flash", "groq-smart", "granite-strategic"]

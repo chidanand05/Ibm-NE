@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "namma-exodus-backend"
+version = "0.1.0"
+description = "Namma Exodus — Agentic AI crowd-exit prediction backend"
+requires-python = ">=3.11"
+
+dependencies = [
+    # ── Web framework ────────────────────────────────────────────────────────
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "python-multipart>=0.0.9",
+
+    # ── Database ─────────────────────────────────────────────────────────────
+    "sqlalchemy[asyncio]>=2.0.30",
+    "asyncpg>=0.29.0",
+    "psycopg2-binary>=2.9.9",          # Alembic sync driver
+    "alembic>=1.13.0",
+    "geoalchemy2>=0.14.0",             # PostGIS Geography type in ORM
+
+    # ── Settings / validation ────────────────────────────────────────────────
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+
+    # ── Cache ────────────────────────────────────────────────────────────────
+    "redis[asyncio]>=5.0.4",
+
+    # ── Logging ──────────────────────────────────────────────────────────────
+    "structlog>=24.2.0",
+
+    # ── OpenTelemetry ────────────────────────────────────────────────────────
+    "opentelemetry-sdk>=1.24.0",
+    "opentelemetry-api>=1.24.0",
+    "opentelemetry-exporter-otlp-proto-grpc>=1.24.0",
+    "opentelemetry-instrumentation-fastapi>=0.45b0",
+    "opentelemetry-instrumentation-sqlalchemy>=0.45b0",
+
+    # ── AI Orchestration ─────────────────────────────────────────────────────
+    "langgraph>=0.2.0",
+    "langgraph-checkpoint-postgres>=1.0.0",
+    "litellm>=1.40.0",
+
+    # ── MCP ──────────────────────────────────────────────────────────────────
+    "mcp[client]>=1.0.0",
+
+    # ── Geospatial ───────────────────────────────────────────────────────────
+    "h3>=4.0.0",             # v4 API: latlng_to_cell, cell_to_latlng, grid_disk
+
+    # ── Vector DB / Memory ───────────────────────────────────────────────────
+    "chromadb-client>=0.5.0",
+    "sentence-transformers>=3.0.0",
+
+    # ── Security ─────────────────────────────────────────────────────────────
+    "passlib[bcrypt]>=1.7.4",
+    "python-jose[cryptography]>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+    "httpx>=0.27.0",           # AsyncClient for FastAPI tests
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

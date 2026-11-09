@@ -1,0 +1,76 @@
+# Namma Exodus — Git Ignore
+
+# ─── Environment files (NEVER commit these) ────────────────────────────────
+.env
+backend/.env
+frontend/.env
+mcp_servers/**/.env
+
+# ─── Python ───────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─── Node.js / Next.js ────────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+.nuxt/
+dist/
+*.local
+
+# ─── Docker ───────────────────────────────────────────────────────────────
+# Don't ignore docker-compose files (they're tracked)
+
+# ─── Database ─────────────────────────────────────────────────────────────
+*.sqlite3
+*.db
+
+# ─── IDE ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ─── Logs ─────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Coverage / test artifacts ────────────────────────────────────────────
+.coverage
+htmlcov/
+.tox/
+coverage.xml
+*.cover
+
+# ─── Alembic (don't ignore migrations — track them) ─────────────────────
+# Only ignore the compiled cache
+backend/migrations/__pycache__/
+.env
+node_modules/
+.next/
+.venv/
